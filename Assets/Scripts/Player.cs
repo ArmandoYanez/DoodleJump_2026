@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
+
 public class Player : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
-    public Sprite[] sprites; 
-    
+    public Sprite[] sprites;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,9 +16,27 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }   
+        // Funcion para movimiento derecha 
+        MoveRight();
+    }
     
+    public void MoveRight()
+    {
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Translate(Vector2.right * 5f * Time.deltaTime);
+        }
+    }
+
+    public void MoveLeft()
+    {
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Translate(Vector2.right * 5f * Time.deltaTime);
+        }
+    }
+
+    // Colision con la plataforma para saltar 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Plataforma"))
@@ -26,8 +46,9 @@ public class Player : MonoBehaviour
             {
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();
                 // Reset de velocidad en Y antes de aplicar el salto para que siempre sea igual
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 12f); 
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 7f); 
             }
         }
     }
+    
 }
