@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
-
+    public AudioSource audio;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
     {
         // Funcion para movimiento derecha 
         MoveRight();
+        MoveLeft();
     }
     
     public void MoveRight()
@@ -25,14 +27,16 @@ public class Player : MonoBehaviour
         if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             transform.Translate(Vector2.right * 5f * Time.deltaTime);
+            spriteRenderer.flipX = false; 
         }
     }
 
     public void MoveLeft()
     {
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Translate(Vector2.right * 5f * Time.deltaTime);
+            transform.Translate(Vector2.left * 5f * Time.deltaTime);
+            spriteRenderer.flipX = true; 
         }
     }
 
@@ -41,12 +45,40 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Plataforma"))
         {
+            
             // Usamos un margen pequeño (0.1) para asegurar que estamos cayendo
             if (GetComponent<Rigidbody2D>().linearVelocity.y <= 0.1f)
             {
                 Rigidbody2D rb = GetComponent<Rigidbody2D>();
                 // Reset de velocidad en Y antes de aplicar el salto para que siempre sea igual
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 7f); 
+                audio.Play();
+            }
+        }
+        
+        if (collision.gameObject.CompareTag("Speed_Plataforma"))
+        {
+            // Usamos un margen pequeño (0.1) para asegurar que estamos cayendo
+            if (GetComponent<Rigidbody2D>().linearVelocity.y <= 0.1f)
+            {
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                // Reset de velocidad en Y antes de aplicar el salto para que siempre sea igual
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 14f); 
+                audio.Play();
+            }
+        }
+        
+        if (collision.gameObject.CompareTag("Danger_Plataforma"))
+        {
+            // Usamos un margen pequeño (0.1) para asegurar que estamos cayendo
+            if (GetComponent<Rigidbody2D>().linearVelocity.y <= 0.1f)
+            {
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                // Reset de velocidad en Y antes de aplicar el salto para que siempre sea igual
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 7f); 
+                
+                collision.gameObject.GetComponent<Danger_Plataform>().startBreaking();
+                audio.Play();
             }
         }
     }

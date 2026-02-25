@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Plataform
   - Plataforma
+  - Speed_Plataforma
+  - Danger_Plataforma
   layers:
   - Default
   - TransparentFX
