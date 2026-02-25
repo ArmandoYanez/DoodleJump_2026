@@ -8,6 +8,7 @@ public class PlatformGenerator : MonoBehaviour
     [Header("Configuración de Spawneo")]
     public Transform camaraTransform;      // Arrastra la Cámara Principal aquí
     public float distanciaEntrePlataformas = 2f; // Distancia vertical aproximada
+    public float distanciaEntrePlataformasA = 2f; // Distancia vertical aproximada
     public float anchoNivel = 3f;          // Qué tan lejos a la izquierda/derecha aparecen
     
     private float alturaSiguientePlataforma = 0f;
@@ -45,6 +46,6 @@ public class PlatformGenerator : MonoBehaviour
         Instantiate(plataformaPrefabs[randomIndex], spawnPosition, Quaternion.identity);
 
         // 4. Incrementar la altura para la próxima plataforma
-        alturaSiguientePlataforma += distanciaEntrePlataformas;
+        alturaSiguientePlataforma += Random.Range(distanciaEntrePlataformas, distanciaEntrePlataformasA);
     }
 }

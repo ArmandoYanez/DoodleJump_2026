@@ -14,7 +14,7 @@ public class bg_changer : MonoBehaviour
     {
         if (backgrounds.Length > 0 && spriteRenderer != null)
         {
-            spriteRenderer.sprite = backgrounds[0];
+            getRandomBackground();
         }
     }
 

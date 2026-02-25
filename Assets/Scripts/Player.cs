@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     public AudioSource audio;
     private Rigidbody2D rb;
     private bool estaVivo = true;
-
+    public GameObject PanelGameOver;
+    
     [Header("Sistema de Puntos")]
     public int puntos = 0;
     private float alturaMaxima = 0f;
@@ -25,8 +26,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
         if (!estaVivo) return; // Si murió, no hace nada más
+        
         text.text = puntos.ToString("00");
         MoveRight();
         MoveLeft();
@@ -57,7 +58,7 @@ public class Player : MonoBehaviour
             puntos = Mathf.RoundToInt(alturaMaxima * 10);
         }
     }
-
+    
     void RevisarSiPerdio()
     {
         if (transform.position.y < (alturaMaxima - limiteCaida))
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
         estaVivo = false;
         spriteRenderer.sprite = sprites[2]; // Sprite de muerte
         Debug.Log("¡PERDISTE! Puntuación final: " + puntos);
+        PanelGameOver.SetActive(true);
         
         // Opcional: darle un pequeño impulso hacia arriba al morir
         rb.linearVelocity = new Vector2(0, 5f);
